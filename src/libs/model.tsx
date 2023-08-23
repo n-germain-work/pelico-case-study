@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export interface Repository {
   id: number;
   name: string;
@@ -11,6 +13,11 @@ export interface Repository {
   };
 }
 
-export interface Favorite {
-  [x: string]: number | null
+export interface FavoriteRepository extends Repository {
+  favorite: boolean;
+  notation: number;
+}
+
+export interface handleSearchChangeProps {
+  handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
