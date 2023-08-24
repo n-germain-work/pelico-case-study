@@ -14,7 +14,6 @@ export interface Repository {
 }
 
 export interface FavoriteRepository extends Repository {
-  favorite: boolean;
   notation: number;
 }
 

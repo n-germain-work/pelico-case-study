@@ -8,6 +8,7 @@ import Favorites from './components/Favorites';
 
 //utils
 import { searchRepositories } from './utils/githubAPI';
+import { debounce } from 'lodash';
 
 //libs
 import { Repository, FavoriteRepository } from './libs/model';
@@ -20,7 +21,10 @@ function App() {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [favorites, setFavorites] = useState<FavoriteRepository[]>([]);
 
-  const getRepositories = (search: string) => searchRepositories(search).then((response) => setRepositories(response));
+  const getRepositories = debounce(async (query: string) => {
+    const _repositories = await searchRepositories(query);
+    setRepositories(_repositories);
+  }, 2000);
 
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
     const _search = e.target.value;
@@ -31,8 +35,9 @@ function App() {
   function handleFavoriteClick(repository: Repository) {
     const favoriteIds = favorites.map((repository) => repository.id);
     const _favorites = favoriteIds.includes(repository.id)
-      ? favorites.filter((r) => r.id === repository.id)
-      : [...favorites, { ...repository, favorite: true, notation: 0 }];
+      ? favorites.filter((r) => r.id !== repository.id)
+      : [...favorites, { ...repository, notation: 0 }];
+    console.log(_favorites);
     setFavorites(_favorites);
   }
 
