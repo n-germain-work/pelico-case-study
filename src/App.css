@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  padding: 10px;
+  z-index: 100;
+}
+
+nav a {
+  font-size: medium;
+}
+
+main {
+  margin-top: 70px;
+  padding: 20px;
+  max-height: calc(100vh - 100px);
+  width: 95vw;
+}

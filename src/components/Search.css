@@ -1,0 +1,13 @@
+.search {
+  position: fixed;
+  background-color: #ffffff;
+  top: 65px;
+  left: 0px;
+  width: calc(100% - 40px);
+  padding: 20px;
+  z-index: 100;
+}
+
+.pointer {
+  cursor: pointer;
+}

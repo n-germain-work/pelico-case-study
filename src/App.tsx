@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Favorites from './components/Favorites';
 
+//material
+import { Button, Stack } from '@mui/material';
+
 //utils
 import { searchRepositories } from './utils/githubAPI';
 import { debounce } from 'lodash';
@@ -15,6 +18,8 @@ import { Repository, FavoriteRepository } from './libs/model';
 
 //css
 import './App.css';
+import WebFont from 'webfontloader';
+WebFont.load({ google: { families: ['Roboto:300,400,500'] } });
 
 function App() {
   const [search, setSearch] = useState<string>('');
@@ -36,40 +41,41 @@ function App() {
     const favoriteIds = favorites.map((repository) => repository.id);
     const _favorites = favoriteIds.includes(repository.id)
       ? favorites.filter((r) => r.id !== repository.id)
-      : [...favorites, { ...repository, notation: 0 }];
-    console.log(_favorites);
+      : [...favorites, { ...repository, notation: null }];
     setFavorites(_favorites);
   }
 
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/Favorites'>Favorites</Link>
-            </li>
-          </ul>
-        </nav>
+      <nav>
+        <Stack spacing={1} direction='row'>
+          <Button variant='contained' color='inherit' size='large'>
+            <Link to='/'>Home</Link>
+          </Button>
+          <Button variant='contained' color='inherit' size='large'>
+            <Link to='/Favorites'>Favorites</Link>
+          </Button>
+        </Stack>
+      </nav>
 
+      <main>
         <Routes>
           <Route
             path='/'
             element={
               <Home
                 search={search}
+                setSearch={setSearch}
                 repositories={repositories}
+                favorites={favorites}
                 handleSearchChange={handleSearchChange}
                 handleFavoriteClick={handleFavoriteClick}
               />
             }
           />
-          <Route path='/Favorites' element={<Favorites favorites={favorites} />} />
+          <Route path='/Favorites' element={<Favorites favorites={favorites} setFavorites={setFavorites} />} />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }

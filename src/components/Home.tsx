@@ -1,18 +1,32 @@
-import { Repository, handleSearchChangeProps } from '../libs/model';
+//react
+import { ChangeEvent } from 'react';
+
+//components
 import RepositoryList from './RepositoryList';
 import Search from './Search';
 
-interface Props extends handleSearchChangeProps {
+//libs
+import { FavoriteRepository, Repository } from '../libs/model';
+
+interface Props {
   search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   repositories: Repository[];
+  favorites: FavoriteRepository[];
   handleFavoriteClick: (repository: Repository) => void;
+  handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Home = ({ search, handleSearchChange, handleFavoriteClick, repositories }: Props) => {
+const Home = ({ search, setSearch, repositories, favorites, handleSearchChange, handleFavoriteClick }: Props) => {
   return (
     <>
-      <Search handleSearchChange={handleSearchChange} />
-      <RepositoryList search={search} repositories={repositories} handleFavoriteClick={handleFavoriteClick} />
+      <Search search={search} setSearch={setSearch} handleSearchChange={handleSearchChange} />
+      <RepositoryList
+        search={search}
+        repositories={repositories}
+        favorites={favorites}
+        handleFavoriteClick={handleFavoriteClick}
+      />
     </>
   );
 };
