@@ -52,5 +52,6 @@ All the functionalities have been implemented successfully, but :
 - I'm clearly lacking experience to build a nice component architecture and code with the best practices in React.
 - With more time to learn Material, the UI could improve a lot.
 - I went for the props and 'lift up state' solution, but it could prove best to go for Context or Redux for the state management.
+- It was specified that the favorites should be kept in memory while the user uses the app, but writing in the local storage could make it permanent.
 
 ---
